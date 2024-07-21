@@ -1,21 +1,22 @@
-.volume-container:hover > input{
-    width: 6em;
-    visibility: visible;
-    transition: width .6s, visibility 0s ease;
-
+.volume-container:hover > input {
+  width: 6em;
+  visibility: visible;
+  transition:
+    width 0.6s,
+    visibility 0s ease;
 }
 
-.volume-container > input:focus{
-    outline: 0!important;
+.volume-container > input:focus {
+  outline: 0 !important;
 }
 
-.volume-container > input{
-    width:0;
-    visibility: hidden;
-    transition: all .6s ease;
-    margin-left: -0.5em;
+.volume-container > input {
+  width: 0;
+  visibility: hidden;
+  transition: all 0.6s ease;
+  margin-left: -0.5em;
 }
 
-.volume-container:hover{
-    width: 10em;
+.volume-container:hover {
+  width: 10em;
 }

@@ -1,6 +1,5 @@
-:root{
-    --second-color: #ec1650; /*use colors easily readable on white background*/
-    --second-color-shadow: #ec165008; 
-    --first-color: #171c22;
-  }
-  
+:root {
+  --second-color: #ec1650; /*use colors easily readable on white background*/
+  --second-color-shadow: #ec165008;
+  --first-color: #171c22;
+}

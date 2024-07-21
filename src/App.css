@@ -33,7 +33,6 @@ html {
   border-radius: 6px;
 }
 
-
 body {
   width: 100vw;
   height: 100vh;
@@ -49,7 +48,9 @@ body {
 .alert-enter-active {
   opacity: 0;
   transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transition:
+    opacity 300ms,
+    transform 300ms;
 }
 
 .alert-exit {
@@ -59,9 +60,10 @@ body {
 .alert-exit-active {
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
+  transition:
+    opacity 300ms,
+    transform 300ms;
 }
-
 
 .isPlayingChannel {
   color: #fff;
@@ -81,11 +83,9 @@ body {
   color: white;
 }
 
-.hg-keyMarker{
+.hg-keyMarker {
   box-shadow: 0 0 0 2px var(--second-color) !important;
 }
-
-
 
 .alert-enter {
   opacity: 0;
@@ -94,7 +94,9 @@ body {
 .alert-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transition:
+    opacity 300ms,
+    transform 300ms;
 }
 .alert-exit {
   opacity: 1;
@@ -102,17 +104,18 @@ body {
 .alert-exit-active {
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
+  transition:
+    opacity 300ms,
+    transform 300ms;
 }
 
-
-.center-container{
+.center-container {
   display: inline-flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
-body > iframe{
+body > iframe {
   display: none;
 }

@@ -1,11 +1,13 @@
 .blur-search {
-    backdrop-filter: blur(.3rem);
-    background-color: rgba(0, 0, 0, .9);
-    opacity: 1 !important;
+  backdrop-filter: blur(0.3rem);
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 1 !important;
 }
 
-@supports ((-webkit-backdrop-filter: blur(.3em)) or (backdrop-filter: blur(.3em))) {
-    .blur-search {
-        background-color: rgba(0, 0, 0, 0) !important;
-    }
+@supports (
+  (-webkit-backdrop-filter: blur(0.3em)) or (backdrop-filter: blur(0.3em))
+) {
+  .blur-search {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
 }

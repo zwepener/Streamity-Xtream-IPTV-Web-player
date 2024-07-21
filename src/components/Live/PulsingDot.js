@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
 /*
 const Pulse = styled.div`
@@ -22,25 +22,27 @@ opacity: 0.0;
 `*/
 
 const Circle = styled.div`
-content: "";
-top: calc(50%);
-display: inline-block;
-height: .7rem;
-width: .7rem;
-border-radius: 50%;
-background-color: #b9b9b9;
-`
+  content: "";
+  top: calc(50%);
+  display: inline-block;
+  height: 0.7rem;
+  width: 0.7rem;
+  border-radius: 50%;
+  background-color: #b9b9b9;
+`;
 
+const PulsingDot = ({ isPlaying }) => {
+  const CircleStyle = { backgroundColor: isPlaying ? "#54ca28" : "b9b9b9" };
 
-const PulsingDot = ({isPlaying}) => {
+  return (
+    <div className={isPlaying ? "mr-1" : "mr-2 ml-2"}>
+      {isPlaying ? (
+        <img style={{ height: "1.5rem" }} src="/img/dot.gif" alt=""></img>
+      ) : (
+        <Circle style={CircleStyle} />
+      )}
+    </div>
+  );
+};
 
-    const CircleStyle = {backgroundColor: isPlaying ? "#54ca28" : "b9b9b9"};
-
-    return (
-        <div className={isPlaying ? "mr-1" : "mr-2 ml-2"} >
-            {isPlaying ? <img style={{height:"1.5rem"}} src="/img/dot.gif" alt=""></img> :  <Circle style={CircleStyle}/>}
-        </div>
-    )
-}
-
-export default PulsingDot
+export default PulsingDot;

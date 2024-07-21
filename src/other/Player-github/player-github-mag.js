@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import {
   FaUndoAlt,
   FaPlay,
@@ -14,8 +14,8 @@ import {
   FaClone,
   FaCompress,
   FaRedoAlt,
-} from 'react-icons/fa';
-import { FiCheck, FiX } from 'react-icons/fi';
+} from "react-icons/fa";
+import { FiCheck, FiX } from "react-icons/fi";
 import {
   Loading,
   StandyByInfo,
@@ -28,16 +28,26 @@ import {
   ItemNext,
   ItemListReproduction,
   ItemListQuality,
-} from './style';
-import "./style.css"
+} from "./style";
+import "./style.css";
 
-import {initStb, stbMovePosition, stbPlaying, stbVolume, stbFullScreen, stbPlayStream, stbPause, stbGetDuration, stbPosition, stbPositionPercent} from "../../other/stb"
-import {useDispatch} from "react-redux"
-import {setVolume} from "../../actions/volume"
-import { useHistory } from 'react-router';
+import {
+  initStb,
+  stbMovePosition,
+  stbPlaying,
+  stbVolume,
+  stbFullScreen,
+  stbPlayStream,
+  stbPause,
+  stbGetDuration,
+  stbPosition,
+  stbPositionPercent,
+} from "../../other/stb";
+import { useDispatch } from "react-redux";
+import { setVolume } from "../../actions/volume";
+import { useHistory } from "react-router";
 
-
-let interval,timeoutLoading, intervalProgress;
+let interval, timeoutLoading, intervalProgress;
 
 export default function ReactNetflixPlayer({
   title = false,
@@ -69,8 +79,8 @@ export default function ReactNetflixPlayer({
   autoControllCloseEnabled = true,
 
   // Styles
-  primaryColor = '#03dffc',
-  secundaryColor = '#ffffff',
+  primaryColor = "#03dffc",
+  secundaryColor = "#ffffff",
   fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
 
   // subtitleMedia,
@@ -86,7 +96,7 @@ export default function ReactNetflixPlayer({
   const [videoReady, setVideoReady] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
-  const progressText = useRef(null)
+  const progressText = useRef(null);
 
   const [duration, setDuration] = useState(0);
   const [end, setEnd] = useState(false);
@@ -105,11 +115,11 @@ export default function ReactNetflixPlayer({
   const [showDataNext, setShowDataNext] = useState(false);
   const [showPlaybackRate, setShowPlaybackRate] = useState(false);
   const [showReproductionList, setShowReproductionList] = useState(false);
-  
-  const dispatch = useDispatch()
-  const history = useHistory()
 
-  const secondsToHms = d => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const secondsToHms = (d) => {
     d = Number(d);
     const h = Math.floor(d / 3600);
     const m = Math.floor((d % 3600) / 60);
@@ -126,15 +136,14 @@ export default function ReactNetflixPlayer({
     return `${m}:${s}`;
   };
 
-
-  const goToPosition = position => {
+  const goToPosition = (position) => {
     ////videoComponent.current.currentTime = position;
     setProgress(position);
   };
 
   const play = () => {
     setPlaying(!playing);
-/*
+    /*
     if (videoComponent.current.paused) {
       //videoComponent.current.play();
       return;
@@ -164,10 +173,10 @@ export default function ReactNetflixPlayer({
     }*/
   };
 
-  const nextSeconds = seconds => {
-    const current = 0//videoComponent.current.currentTime;
+  const nextSeconds = (seconds) => {
+    const current = 0; //videoComponent.current.currentTime;
     const total = 1000;
-    const duration = 999
+    const duration = 999;
     /*;
     if (current + seconds >= total - 2) {
       //videoComponent.current.currentTime = duration - 1;
@@ -179,7 +188,7 @@ export default function ReactNetflixPlayer({
     setProgress(//videoComponent.current.currentTime + seconds);*/
   };
 
-  const previousSeconds = seconds => {
+  const previousSeconds = (seconds) => {
     /*const current = //videoComponent.current.currentTime;
 
     if (current - seconds <= 0) {
@@ -215,7 +224,6 @@ export default function ReactNetflixPlayer({
     }
   };
 
-
   const setStateFullScreen = () => {
     if (
       !document.webkitIsFullScreen &&
@@ -248,33 +256,46 @@ export default function ReactNetflixPlayer({
 
     if (timerRef.current) {
       clearTimeout(timerRef.current);
-      clearInterval(intervalProgress)
+      clearInterval(intervalProgress);
 
-      if(progressText.current)
-        progressText.current.innerText = stbPosition()
-      if(progressBar.current){
+      if (progressText.current) progressText.current.innerText = stbPosition();
+      if (progressBar.current) {
         progressBar.current.value = stbPositionPercent();
-        progressBar.current.style.background =  "linear-gradient(to right,  var(--second-color) 0%,var(--second-color) "+ stbPositionPercent() +"%,#191919 "+ stbPositionPercent() +"%,#191919 100%)";
-      };
+        progressBar.current.style.background =
+          "linear-gradient(to right,  var(--second-color) 0%,var(--second-color) " +
+          stbPositionPercent() +
+          "%,#191919 " +
+          stbPositionPercent() +
+          "%,#191919 100%)";
+      }
     }
 
-    intervalProgress = setInterval(()=>{
-      if(progressText.current)
-        progressText.current.innerText = stbPosition()
-      if(progressBar.current){
+    intervalProgress = setInterval(() => {
+      if (progressText.current) progressText.current.innerText = stbPosition();
+      if (progressBar.current) {
         progressBar.current.value = stbPositionPercent();
-        progressBar.current.style.background =  "linear-gradient(to right,  var(--second-color) 0%,var(--second-color) "+ stbPositionPercent() +"%,#191919 "+ stbPositionPercent() +"%,#191919 100%)";
-      };
-    },1000)
+        progressBar.current.style.background =
+          "linear-gradient(to right,  var(--second-color) 0%,var(--second-color) " +
+          stbPositionPercent() +
+          "%,#191919 " +
+          stbPositionPercent() +
+          "%,#191919 100%)";
+      }
+    }, 1000);
 
-    timerRef.current = setTimeout(()=>{
+    timerRef.current = setTimeout(() => {
       controllScreenTimeOut();
-      clearInterval(intervalProgress)
+      clearInterval(intervalProgress);
     }, 5000);
   };
 
-  const getKeyBoardInteration = e => {
-    if (e.keyCode === 13 || e.keyCode === 45 || e.keyCode === 82 || e.keyCode === 83) {
+  const getKeyBoardInteration = (e) => {
+    if (
+      e.keyCode === 13 ||
+      e.keyCode === 45 ||
+      e.keyCode === 82 ||
+      e.keyCode === 83
+    ) {
       if (stbPlaying() !== 2) {
         stbPause(false);
         setPlaying(true);
@@ -284,29 +305,28 @@ export default function ReactNetflixPlayer({
         setPlaying(false);
         hoverScreen();
       }
-    }else if ((e.keyCode === 37 || e.keyCode === 66) && stbPlaying() == 2) {
+    } else if ((e.keyCode === 37 || e.keyCode === 66) && stbPlaying() == 2) {
       stbMovePosition(-30);
       hoverScreen();
-    }else if ((e.keyCode === 39 || e.keyCode === 70) && stbPlaying() == 2) {
-      stbMovePosition(30)
+    } else if ((e.keyCode === 39 || e.keyCode === 70) && stbPlaying() == 2) {
+      stbMovePosition(30);
       hoverScreen();
-    }else if(e.keyCode === 107 || e.keyCode === 109){
-      dispatch(setVolume(e.keyCode === 107))
-    }else if(e.keyCode === 27 || e.keyCode === 8)
-      history.goBack()
+    } else if (e.keyCode === 107 || e.keyCode === 109) {
+      dispatch(setVolume(e.keyCode === 107));
+    } else if (e.keyCode === 27 || e.keyCode === 8) history.goBack();
     else hoverScreen();
   };
 
   const scrollToSelected = () => {
     const element = listReproduction.current;
-    const selected = element.getElementsByClassName('selected')[0];
+    const selected = element.getElementsByClassName("selected")[0];
     const position = selected.offsetTop;
     const height = selected.offsetHeight;
     element.scrollTop = position - height * 2;
   };
 
-  const onChangePlayBackRate = speed => {
-    speed = speed === 'Normal' ? 1 : speed;
+  const onChangePlayBackRate = (speed) => {
+    speed = speed === "Normal" ? 1 : speed;
     //videoComponent.current.playbackRate = speed;
     setPlaybackRate(speed);
   };
@@ -317,13 +337,16 @@ export default function ReactNetflixPlayer({
     }
   }, [showReproductionList]);
 
-
   useEffect(() => {
     initStb();
-    stbVolume(0)
+    stbVolume(0);
     stbFullScreen(1);
-    document.addEventListener('keydown', getKeyBoardInteration, false);
-    playerElement.current.addEventListener('fullscreenchange', setStateFullScreen, false);
+    document.addEventListener("keydown", getKeyBoardInteration, false);
+    playerElement.current.addEventListener(
+      "fullscreenchange",
+      setStateFullScreen,
+      false,
+    );
 
     clearInterval(interval);
     clearTimeout(timeoutLoading);
@@ -336,32 +359,36 @@ export default function ReactNetflixPlayer({
       setShowReproductionList(false);
       setShowDataNext(false);
       setPlaying(autoPlay);
-      stbPlayStream(src)
+      stbPlayStream(src);
 
-      interval = setInterval(()=>{
-      if(stbPlaying()>1){
+      interval = setInterval(() => {
+        if (stbPlaying() > 1) {
+          clearInterval(interval);
+          clearTimeout(timeoutLoading);
+          setVideoReady(true);
+          setShowInfo(false);
+          setShowControls(false);
+          hoverScreen();
+          setDuration(stbGetDuration());
+        }
+      }, 1000);
+
+      timeoutLoading = setTimeout(() => {
         clearInterval(interval);
-        clearTimeout(timeoutLoading);
-        setVideoReady(true)
-        setShowInfo(false)
-        setShowControls(false)
-        hoverScreen();
-        setDuration(stbGetDuration());
-      }
-    },1000)
-
-    timeoutLoading = setTimeout(()=>{
-      clearInterval(interval)
-      setError(true)
-    },10000)
-
+        setError(true);
+      }, 10000);
     }
   }, []);
 
   // When changes happen in fullscreen document, teh state of fullscreen is changed
   useEffect(() => {
     setStateFullScreen();
-  }, [document.fullscreenElement, document.webkitIsFullScreen, document.mozFullScreen, document.msFullscreenElement]);
+  }, [
+    document.fullscreenElement,
+    document.webkitIsFullScreen,
+    document.mozFullScreen,
+    document.msFullscreenElement,
+  ]);
 
   function renderLoading() {
     return (
@@ -425,7 +452,7 @@ export default function ReactNetflixPlayer({
                 <div>
                   <p>Try changing the image quality</p>
                   <div className="links-error">
-                    {qualities.map(item => (
+                    {qualities.map((item) => (
                       <div onClick={() => onChangeQuality(item.id)}>
                         {item.prefix && <span>HD</span>}
                         <span>{item.nome}</span>
@@ -443,28 +470,32 @@ export default function ReactNetflixPlayer({
   }
 
   return (
-    <Container style={{backgroundColor:"transparent"}}
+    <Container
+      style={{ backgroundColor: "transparent" }}
       ref={playerElement}
       hideVideo={!!error}
       fontFamily={fontFamily}
     >
-      {(videoReady === false || (waitingBuffer === true && playing === true)) && !error && !end && renderLoading()}
+      {(videoReady === false || (waitingBuffer === true && playing === true)) &&
+        !error &&
+        !end &&
+        renderLoading()}
 
       {!!overlayEnabled && renderInfoVideo()}
 
       {renderCloseVideo()}
 
-      <Controlls   style={{backgroundColor:"transparent"}}
+      <Controlls
+        style={{ backgroundColor: "transparent" }}
         show={showControls === true && videoReady === true && error === false}
         primaryColor={primaryColor}
         progressVideo={progress}
       >
-
         <div className="line-reproduction">
           <span className="mr-1" ref={progressText}></span>
           <input
             type="range"
-            ref = {progressBar}
+            ref={progressBar}
             className="progress-netflix"
             min={0}
             max={100}
@@ -499,7 +530,6 @@ export default function ReactNetflixPlayer({
                 <span className="info-secund">{extraInfoMedia}</span>
               </div>
             </div>
-
           </div>
         )}
       </Controlls>
